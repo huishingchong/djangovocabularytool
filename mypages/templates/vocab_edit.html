@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Editing definition of {{ obj.word }}</h2>
+
+<form id="EditForm" method="POST">
+    {% csrf_token %}
+    <input type="text" placeholder="{{ obj.eng }}" name="eng" value="{{ obj.eng }}">
+    <input type="hidden" placeholder="{{ obj.p }}" name="p" value="{{ obj.p }}">
+    <input type="hidden" placeholder="{{ obj.word }}" name="word" value="{{ obj.word }}">
+    <button type="submit" form="EditForm">Save</button> <a href='../../'>Cancel</a></p>
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+</form>
+
+
+
+{% endblock %}

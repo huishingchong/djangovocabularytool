@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- 
+        @include icon-button.core-styles;  
+        npm install @material/button
+        @use "@material/button";
+        @include button.core-styles;
+        -->
+        <style type="text/css">
+        h1 {
+            padding-left: 10px;
+        }
+
+        .wrapping {
+        padding-left: 10px;
+        }
+        </style>
+    </head>
+</html>
+
+{% if user.is_authenticated %}
+<br>
+<h1 style="font-family: 'Helvetica, sans-serif">Chinese Vocabulary Tool  
+    <a href="{% url 'home' %}" class="material-icons" style="color: #4A148C; text-decoration: none;">home</a> | 
+    <a href="{% url 'about' %}" class="material-icons" style="color: #4A148C; text-decoration: none;">help</a>
+</h1>
+{% endif %}
+<div class="wrapping">
+    {% block content %}
+    {% endblock %}
+</div>

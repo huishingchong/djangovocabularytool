@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<head>
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- 
+    npm install @material/list
+    @use "@material/list";
+    @include list.core-styles;
+
+    npm install @material/data-table
+    @use "@material/checkbox"; // Required only for data table with row selection.
+    @use "@material/icon-button"; // Required only for data table with column sorting.
+    @use "@material/data-table";
+    @include checkbox.core-styles;
+    @include icon-button.core-styles;
+    @include data-table.core-styles;
+    @include data-table.theme-baseline;
+
+    npm install @material/textfield
+    @use "@material/floating-label/mdc-floating-label";
+    @use "@material/line-ripple/mdc-line-ripple";
+    @use "@material/notched-outline/mdc-notched-outline";
+    @use "@material/textfield";
+    @include textfield.core-styles;
+
+    npm install @material/top-app-bar
+    @use "@material/icon-button";
+    @use "@material/top-app-bar/mdc-top-app-bar";
+    @include icon-button.core-styles;
+    -->
+    <style type="text/css">
+    .mdc-data-table, .form-input {
+      padding-left: 20px;
+    }
+    </style>
+</head>
+</br><br>
+
+
+<header class="mdc-top-app-bar">
+  <div class="mdc-top-app-bar__row">
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+      <a href="{% url 'home' %}" class="material-icons" style="color: #ffffff; text-decoration: none;">home</a>
+      <span class="mdc-top-app-bar__title" style="font-family: 'Helvetica">
+        Vocabulary set: {{ table }}
+      </span>
+    </section>
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+      <button class="mdc-button mdc-top-app-bar__action-item" aria-label="Export">
+        <a href="{% url 'generate-pdf' table %}"style="color: #ffffff;">Export Set</a></button>
+      <button class="mdc-button mdc-top-app-bar__action-item">
+        <a href="{% url 'set-delete' table %}"style="color: #ffffff;">Delete Whole Set</a></button>
+    </section>
+  </div>
+</header>
+
+
+
+<br><br><br><br><br><br>
+
+<form class='form-input' method="POST" id="VocabForm">
+  {% csrf_token %}
+  <input id="word" type="text" placeholder="Type chinese word" name="word">
+  <button type="submit" value="submit" form="VocabForm">Save</button>
+</form>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<br><br><br><br><br>
+
+<div class="mdc-data-table">
+  <div class="mdc-data-table__table-container">
+    <table class="mdc-data-table__table" aria-label="Vocabulary table">
+      <thead>
+        <tr class="mdc-data-table__header-row">
+          <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Vocabulary</th>
+          <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Phonetic Writing</th>
+          <th class="mdc-data-table__header-cell" role="columnheader" scope="col">English translation</th>
+          <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="mdc-data-table__content">
+        {% if all_item %}
+          {% for i in all_item %}
+            {% if i.title == table %}
+            <tr class="mdc-data-table__row">
+            <th class="mdc-data-table__cell" scope="row" name="word">{{ i.word }}</th>
+            <td class="mdc-data-table__cell" scope="row" name="eng">{{ i.p }}</td>
+            <td class="mdc-data-table__cell" scope="row" name="p">{{ i.eng }}</td>
+
+            <td class="mdc-data-table__cell" scope="row">
+              <button class="mdc-button mdc-button--raised" name="edit">
+                <a href="{% url 'vocab-edit' i.title i.id %}" style="color: #fafafa; text-decoration: none;">
+                <div class="mdc-button__ripple"></div>
+                <i class="material-icons mdc-button__icon" aria-hidden="true">create</i>
+                <span class="mdc-button__label">Edit</span></a>
+              </button> 
+            </td>
+            <td class="mdc-data-table__cell" id="form-input" scope="row">
+              <button class="mdc-button mdc-button--raised" name="delete">
+                <a href="{% url 'vocab-delete' i.title i.id %}" style="color: #fafafa; text-decoration: none;">
+                <div class="mdc-button__ripple"></div>
+                <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
+                  <span class="mdc-button__label">Delete</span></a>
+              </button> 
+            </td>
+          </tr>
+            {% endif %}
+          {% endfor %}        
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

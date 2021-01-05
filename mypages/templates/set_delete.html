@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<style type="text/css">
+    .form-delete-set {
+      padding-left: 10px;
+    }
+</style>
+
+<form method="POST" class="form-delete-set">
+    {% csrf_token %}
+    <h2>Do you want to delete the whole vocabulary set: {{ object.slug }}? </h2>
+    <p><input type="submit" value='Yes' > <a href='../../'>Cancel</a></p>
+
+</form>
+{% endblock %}

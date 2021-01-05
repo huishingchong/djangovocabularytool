@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    <h2>Do you want to delete the row {{ object.word }} and all its content?</h2>
+    <p><input type="submit" value='Yes' > <a href='../../'>Cancel</a></p>
+
+</form>
+{% endblock %}
