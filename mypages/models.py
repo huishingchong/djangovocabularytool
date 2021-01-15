@@ -3,14 +3,6 @@ from django.contrib.auth.models import User
 from vocabularytool.utils import unique_slug_generator
 from django.db.models.signals import pre_save
 
-# Create your models here.
-#class UserDatabase(models.Model):
-#    username = User.get_username
-#    print(username)
-#    email = models.EmailField(max_length=254)
-
-#    def __str__(self):
-#        return self.username
 
 class VocabularySets(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE, null=True)

@@ -56,7 +56,6 @@ def create(request, slug):
             return render(request, 'create.html', context)
         else:
             messages.error(request, 'Input not valid (e.g. can only accept chinese and up to 20 characters).')
-            VocabForm()
             return redirect(create, slug)
     else:
         return render(request, 'create.html', {'table': table, 'all_item': all_item})
