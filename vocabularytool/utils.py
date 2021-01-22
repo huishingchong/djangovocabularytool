@@ -1,6 +1,5 @@
 import random
 import string
-#from unidecode import unidecode
 from django.template import defaultfilters
 
 from django.utils.text import slugify

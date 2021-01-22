@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mypages',
+    'django_extensions',
 
     'allauth',
     'allauth.account',
