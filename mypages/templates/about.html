@@ -1,14 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
+<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style type="text/css">
+  .instructions {
+    padding-left: 10px;
+  }
+</style>
+
 <header class="mdc-top-app-bar">
     <div class="mdc-top-app-bar__row">
       <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-        <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" aria-label="Open navigation menu">menu</button>
         <span class="mdc-top-app-bar__title">User guide</span>
       </section>
     </div>
   </header>
 <br><br><br>
+<span class="instructions">
   <h2> Instructions on how to use the chinese vocabulary tool </h2>
     <ol>
       <li>In the home page, type in the chinese words you want to add into the vocabulary list and press 'Enter'.</li>
@@ -20,11 +29,11 @@
       <li>Your vocabulary set will be automatically saved, and can be accessed through the home page</li>
       <li>You can export the finished vocabulary set to a PDF by clicking the 'Export set' button in the home or create page</li>
     </ol>
-
+</span>
+<br>
 <p>Sidenote: the translation is generated using Google Translate, and so may not be 100% accurate. 
   Therefore the edit function allows you to change the english translation if you are not satisfied with the automatic translation.</p>
-<br>
   <h3>Don't hesitate to contact me for any queries/bug reporting:</h3>
   <p>Email: hs.chong@dwightlondon.org</p>
-
+ 
 {% endblock %}

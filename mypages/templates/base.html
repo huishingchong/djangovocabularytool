@@ -4,14 +4,27 @@
         <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
         <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        
         <style type="text/css">
         h1 {
             padding-left: 10px;
         }
 
-        .wrapping {
-        padding-left: 10px;
+        .whole {
+            padding-left: 10px;
         }
+
+        .navigation {
+            color: #4A148C;
+            padding-left: 30px;
+            text-decoration: none;
+        }
+
+        .material-icons {
+            padding-right: 5px;
+            font-size: 48px;
+        }
+
         </style>
     </head>
 </html>
@@ -19,11 +32,12 @@
 {% if user.is_authenticated %}
 <br>
 <h1 style="font-family: 'Helvetica, sans-serif">Chinese Vocabulary Tool  
-    <a href="{% url 'home' %}" class="material-icons" style="color: #4A148C; text-decoration: none;">home</a> | 
-    <a href="{% url 'about' %}" class="material-icons" style="color: #4A148C; text-decoration: none;">help</a>
+    <a href="{% url 'home' %}"  class="navigation"><span class="material-icons">home</span>Home</a> 
+    <a href="{% url 'about' %}" class="navigation"><span class="material-icons">help</span>About</a>
 </h1>
 {% endif %}
-<div class="wrapping">
+
+<div class="whole">
     {% block content %}
     {% endblock %}
 </div>
