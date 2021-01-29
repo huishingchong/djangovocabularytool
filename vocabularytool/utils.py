@@ -16,15 +16,10 @@ def random_string_generator(size=10, chars=string.ascii_lowercase + string.digit
 
 
 def unique_slug_generator(instance, new_slug=None):
-    """
-    This is for a Django project and it assumes your instance 
-    has a model with a slug field and a title character (char) field.
-    """
     if new_slug is not None:
         slug = new_slug
     else:
         slug = slugify(instance.title, allow_unicode=True)
-        #slug = defaultfilters.slugify(unidecode(instance.title))
 
     Klass = instance.__class__
     qs_exists = Klass.objects.filter(slug=slug).exists()
