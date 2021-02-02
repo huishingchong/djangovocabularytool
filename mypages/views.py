@@ -20,8 +20,7 @@ def home(request):
             title = form.save(commit=False)
             title.username = request.user
             title.save()
-            context = {'title': title, 'form': form, 'all_item': all_item}
-            return render(request, 'home.html', context)
+            return redirect(home)
         else:
             messages.error(request, 'Input not valid.')
             return redirect(home)
