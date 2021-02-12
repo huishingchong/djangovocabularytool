@@ -40,7 +40,7 @@ def create(request, slug):
     table = VocabularySets.objects.get(slug=slug)   #get the slug object from VocabularySets model
     all_item = Vocab.objects.all
     
-    if request.method == 'POST':
+    if 'word' in request.POST:
         form = VocabForm(request.POST or None)
         if form.is_valid():
             f = form.save(commit=False)
@@ -56,8 +56,19 @@ def create(request, slug):
         else:
             messages.error(request, 'Input not valid (e.g. can only accept chinese and up to 20 characters).')
             return redirect(create, slug)
-    else:
-        return render(request, 'create.html', {'table': table, 'all_item': all_item})
+    return render(request, 'create.html', {'table': table, 'all_item': all_item})   
+
+def star(request, slug, id):
+    obj = Vocab.objects.get(pk=id)
+    obj.star = True
+    obj.save()
+    return redirect(create, slug)
+
+def unstar(request, slug, id):
+    obj = Vocab.objects.get(pk=id)
+    obj.star = False
+    obj.save()
+    return redirect(create, slug)
 
 
 def vocab_delete_view(request, slug, id):

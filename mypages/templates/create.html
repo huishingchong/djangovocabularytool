@@ -9,6 +9,10 @@
         padding-left: 20px;
       }
 
+      .mdc-data-table__header-cell {
+        font-weight: bold;
+      }
+
     </style>
 </head>
 </br><br>
@@ -38,7 +42,7 @@
 <form class='form-input' method="POST" id="VocabForm">
   {% csrf_token %}
   <input id="word" type="text" placeholder="Type chinese word" name="word">
-  <button type="submit" value="submit" form="VocabForm">Save</button>
+  <button type="submit" form="VocabForm">Save</button>
 </form>
 {% if messages %}
 <ul class="messages">
@@ -55,6 +59,7 @@
     <table class="mdc-data-table__table" aria-label="Vocabulary table">
       <thead>
         <tr class="mdc-data-table__header-row">
+          <th class="mdc-data-table__header-cell" role="columnheader" scope="col"></th>
           <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Vocabulary</th>
           <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Phonetic Writing</th>
           <th class="mdc-data-table__header-cell" role="columnheader" scope="col">English translation</th>
@@ -66,6 +71,18 @@
           {% for i in all_item %}
             {% if i.title == table %}
             <tr class="mdc-data-table__row">
+            <td>
+              {% if i.star %}
+                <button class="mdc-button" type="submit"><input name="Unstar" type="hidden"/>
+                  <a href="{% url 'unstar' i.title i.id %}" style="color: #6929ff; text-decoration: none;">
+                  <span class="material-icons mdc-button__icon" aria-hidden="true"><div class="mdc-button__ripple"></div>star</span></a>
+              </button>
+              {% else %}
+                <button class="mdc-button" type="submit"><input name="Star" type="hidden"/>
+                  <a href="{% url 'star' i.title i.id %}" style="color: #6929ff; text-decoration: none;">
+                  <span class="material-icons mdc-button__icon" aria-hidden="true"><div class="mdc-button__ripple"></div>star_border</span></a>
+                </button>
+              {% endif %}
             <th class="mdc-data-table__cell" scope="row" name="word">{{ i.word }}</th>
             <td class="mdc-data-table__cell" scope="row" name="eng">{{ i.p }}</td>
             <td class="mdc-data-table__cell" scope="row" name="p">{{ i.eng }}</td>

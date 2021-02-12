@@ -22,6 +22,7 @@ class Vocab(models.Model):
     word = models.CharField(max_length=20)
     eng = models.CharField(max_length=50)
     p = models.CharField(max_length=30)
+    star = models.BooleanField(default=False)
 
     def __str__(self):
         return self.word

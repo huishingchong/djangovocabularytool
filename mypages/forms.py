@@ -18,7 +18,7 @@ class TitleForm(forms.ModelForm):
 class VocabForm(forms.ModelForm):
     class Meta:
         model = Vocab
-        fields = ['word']
+        fields = ['word', 'star']
 
     def clean_word(self, *args, **kwargs):
         word = self.cleaned_data.get("word")

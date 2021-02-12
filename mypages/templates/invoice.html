@@ -71,7 +71,11 @@
                 {% for i in all_item %}
                     {% if i.title == title %}
                     <tr>
+                        {% if i.star %}
+                            <td>&#x2605 {{ i.word }}</td>
+                        {% else %}
                         <td>{{ i.word }}</td>
+                        {% endif %}
                         <td>{{ i.p }}</td>
                         <td class='eng'>{{ i.eng }}</td>
                     </tr>

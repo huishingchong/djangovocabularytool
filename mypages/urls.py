@@ -9,5 +9,7 @@ urlpatterns = [
     path('create/<slug:slug>/delete/<int:id>/', views.vocab_delete_view, name='vocab-delete'),
     path('create/<slug:slug>/edit/<int:id>/', views.vocab_edit_view, name='vocab-edit'),
     path('delete/<slug:slug>/', views.set_delete_view, name='set-delete'),
-    path('pdf/<slug:slug>', views.generate_PDF, name="generate-pdf")
+    path('pdf/<slug:slug>', views.generate_PDF, name="generate-pdf"),
+    path('star/<slug:slug>/<int:id>/', views.star, name='star'),
+    path('unstar/<slug:slug>/<int:id>/', views.unstar, name='unstar'),
 ]
