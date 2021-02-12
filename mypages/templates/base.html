@@ -4,6 +4,9 @@
         <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
         <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
+        
         
         <style type="text/css">
         h1 {
@@ -12,6 +15,7 @@
 
         .whole {
             padding-left: 10px;
+            font-family: 'Roboto Slab', sans-serif;
         }
 
         .navigation {
@@ -31,7 +35,7 @@
 
 {% if user.is_authenticated %}
 <br>
-<h1 style="font-family: 'Helvetica, sans-serif">Chinese Vocabulary Tool  
+<h1 style="font-family: 'Roboto Slab', sans-serif">Chinese Vocabulary Tool  
     <a href="{% url 'home' %}"  class="navigation"><span class="material-icons">home</span>Home</a> 
     <a href="{% url 'about' %}" class="navigation"><span class="material-icons">help</span>About</a>
 </h1>
