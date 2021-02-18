@@ -109,25 +109,25 @@ def set_delete_view(request, slug):
 
 
 def generate_PDF(request, slug):
-    title = VocabularySets.objects.get(slug=slug)
+    title = VocabularySets.objects.get(slug=slug) #get title o
     username = request.user
     all_item = Vocab.objects.all
-    template = get_template('invoice.html')
+    template = get_template('invoice.html') #invoice template to be rendered for PDF viewing
     context = {
         'title': title,
         'username': username,
         'all_item': all_item
-    }
+    } #All necessary data are assigned in dictionary and passed into the render_to_pdf function
 
     html = template.render(context)
-    pdf = render_to_pdf('invoice.html', context)
+    pdf = render_to_pdf('invoice.html', context) #render_to_pdf function is defined in utils.py
     if pdf:
         response = HttpResponse(pdf, content_type='application/pdf')
-        filename = "%s.pdf" %(title)
+        filename = "%s.pdf" %(title) #assign the filename as vocabulary set title
         content = "inline; filename=%s" %(filename)
-        download = request.GET.get("download")
+        download = request.GET.get("download") #handle downloading in request
         if download:
-            content = "attachment; filename=%s" %(filename)
+            content = "attachment; filename=%s" %(filename) #attachment filename defined
         response['Content-Disposition'] = content
         return response
-    return HttpResponse("PDF not found.")
+    return HttpResponse("PDF not found.") #error message handling
