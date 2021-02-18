@@ -39,24 +39,24 @@ def about(request):
 
 
 def create(request, slug):
-    table = VocabularySets.objects.get(slug=slug)   #get the slug object from VocabularySets model
+    table = VocabularySets.objects.get(slug=slug)   #Queryset the slug object from VocabularySets model
     all_item = Vocab.objects.all
     
-    if 'word' in request.POST:
+    if 'word' in request.POST: #Checks for POST method when button is pressed submitting 'word' value (see create template)
         form = VocabForm(request.POST or None)
         if form.is_valid():
             f = form.save(commit=False)
             w = request.POST.get('word')
-            f.p = pinyin_jyutping_sentence.pinyin(w)
+            f.p = pinyin_jyutping_sentence.pinyin(w) #p field of the word is assigned to the pinyin generated
             trans = Translator()
-            e = trans.translate(w)
-            f.eng = e.text
-            f.title = table
+            e = trans.translate(w) #Google translate method
+            f.eng = e.text #eng field is assigned to Google translated text
+            f.title = table #title field is assigned to table variable defined earlier (slug object)
             form.save()
             context = {'all_item': all_item, 'table': table}
             return render(request, 'create.html', context)
         else:
-            messages.error(request, 'Input not valid (e.g. can only accept chinese and up to 20 characters).')
+            messages.error(request, 'Input not valid (e.g. can only accept chinese and up to 20 characters).') #error handling message
             return redirect(create, slug)
     return render(request, 'create.html', {'table': table, 'all_item': all_item})   
 
@@ -78,21 +78,21 @@ def vocab_delete_view(request, slug, id):
     if request.method == 'POST':
         obj.delete()
         return redirect('../../')
-    messages.success(request, ('Vocabulary has been deleted.'))
+    messages.success(request, ('Vocabulary has been deleted.')) #success message displayed in create template
     return render(request, 'vocab_delete.html', {'object': obj})
 
 
 def vocab_edit_view(request, slug, id):
     if request.method == 'POST':
-        obj = Vocab.objects.get(pk=id)
-        form = EditForm(request.POST or None, instance=obj)
+        obj = Vocab.objects.get(pk=id) #get vocab object by primary key passed in the function during request
+        form = EditForm(request.POST or None, instance=obj) #object to be edited in EditForm
         if form.is_valid():
             new_obj = form.save(commit=False)
-            new_obj.eng = obj.eng
+            new_obj.eng = obj.eng #replace with new edited object
             new_obj.save()
             return redirect('../../')
         else:
-            messages.error(request, 'Input not valid (e.g. only allow up to 50 characters).')
+            messages.error(request, 'Input not valid (e.g. only allow up to 50 characters).') #error message handling
             return redirect(vocab_edit_view, slug, id)
     else:
         obj = Vocab.objects.get(pk=id)
@@ -100,11 +100,11 @@ def vocab_edit_view(request, slug, id):
 
 
 def set_delete_view(request, slug):
-    obj = VocabularySets.objects.get(slug=slug)
+    obj = VocabularySets.objects.get(slug=slug) #get object by slug parameter from VocabularySets model
     if request.method == "POST":
         obj.delete()
         return redirect('../../')
-        messages.success(request, ('The whole vocabulary set has been deleted.'))
+        messages.success(request, ('The whole vocabulary set has been deleted.')) #success message
     return render(request, 'set_delete.html', {'object': obj})
 
 
