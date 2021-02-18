@@ -32,11 +32,11 @@ def unique_slug_generator(instance, new_slug=None):
     return slug
 
 
-def render_to_pdf(template_src, context_dict={}):
-    template = get_template(template_src)
+def render_to_pdf(template_src, context_dict={}): #context_dict parameter passed from views function contains all variables required for the PDF
+    template = get_template(template_src) #invoice template is passed into function as template_src parameter to be rendered
     html  = template.render(context_dict)
-    result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result, encoding='UTF-8')
-    if not pdf.err:
+    result = BytesIO() #to deal with bytes objects
+    pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result, encoding='UTF-8') #UTF- 8 encoding supports Chinese language
+    if not pdf.err: #checks for error in PDF generation
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return None
