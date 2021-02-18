@@ -62,13 +62,13 @@ def create(request, slug):
 
 def star(request, slug, id):
     obj = Vocab.objects.get(pk=id)
-    obj.star = True #change star field of Vocab to True
+    obj.star = True #change star field of Vocab instance to True
     obj.save()
     return redirect(create, slug)
 
 def unstar(request, slug, id):
     obj = Vocab.objects.get(pk=id)
-    obj.star = False #change star field of Vocab to False
+    obj.star = False #change star field of Vocab instance to False
     obj.save()
     return redirect(create, slug)
 
