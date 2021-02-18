@@ -12,24 +12,24 @@ from django.template.loader import get_template
 
 
 def home(request):
-    all_item = VocabularySets.objects.all
-    details = Vocab.objects.all
+    all_item = VocabularySets.objects.all #Queryset all VocabularySet objects to be passed into home template
+    details = Vocab.objects.all #Queryset all Vocab objects to be passed into home template
     if request.method == 'POST':
-        form = TitleForm(request.POST or None)
-        if form.is_valid():
+        form = TitleForm(request.POST or None) #TitleForm to be populated upon POST request
+        if form.is_valid(): #method that validates form
             title = form.save(commit=False)
-            title.username = request.user
+            title.username = request.user #Username field for the title object is the current user in request
             title.save()
             return redirect(home)
         else:
-            messages.error(request, 'Input not valid.')
+            messages.error(request, 'Input not valid.') #Error message displayed in html
             return redirect(home)
     else: 
-        if request.user.is_authenticated:
-            count = VocabularySets.objects.filter(username=request.user).count()
+        if request.user.is_authenticated: #Django's built-in method that checks whether user is logged in (authorisation protocol)
+            count = VocabularySets.objects.filter(username=request.user).count() #Counts the amount of sets in VocabularySets model that matches the given user parameter
         else:
-            count = 0
-        return render(request, 'home.html', {'all_item': all_item, 'details': details, 'count': count})
+            count = 0 #count is 0 if user is not authenticated (just in case)
+        return render(request, 'home.html', {'all_item': all_item, 'details': details, 'count': count}) #Variables passed into home template through a dictionary, to be displayed.
 
 
 def about(request):
