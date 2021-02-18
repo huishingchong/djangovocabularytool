@@ -26,10 +26,12 @@ def home(request):
             return redirect(home)
     else: 
         if request.user.is_authenticated: #Django's built-in method that checks whether user is logged in (authorisation protocol)
-            count = VocabularySets.objects.filter(username=request.user).count() #Counts the amount of sets in VocabularySets model that matches the given user parameter
+            count = VocabularySets.objects.filter(username=request.user).count() 
+            #Counts the amount of sets in VocabularySets model that matches the given user parameter
         else:
             count = 0 #count is 0 if user is not authenticated (just in case)
-        return render(request, 'home.html', {'all_item': all_item, 'details': details, 'count': count}) #Variables passed into home template through a dictionary, to be displayed.
+        return render(request, 'home.html', {'all_item': all_item, 'details': details, 'count': count}) 
+        #Variables passed into home template through a dictionary to be displayed.
 
 
 def about(request):
