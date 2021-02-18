@@ -62,19 +62,19 @@ def create(request, slug):
 
 def star(request, slug, id):
     obj = Vocab.objects.get(pk=id)
-    obj.star = True
+    obj.star = True #change star field of Vocab to True
     obj.save()
     return redirect(create, slug)
 
 def unstar(request, slug, id):
     obj = Vocab.objects.get(pk=id)
-    obj.star = False
+    obj.star = False #change star field of Vocab to False
     obj.save()
     return redirect(create, slug)
 
 
 def vocab_delete_view(request, slug, id):
-    obj = Vocab.objects.get(pk=id)
+    obj = Vocab.objects.get(pk=id) #get Vocab object currently deleting by primary key passed in function during request
     if request.method == 'POST':
         obj.delete()
         return redirect('../../')
