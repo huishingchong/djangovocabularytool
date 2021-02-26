@@ -41,17 +41,17 @@
     <br>
   {% endif %}
 
-<h3>Enter the title below to create a new vocabulary set.</h3>
-  <form method="POST" id="TitleForm">
-    {% csrf_token %}
-    <input id="title" type="text" placeholder="Enter title (only english):" name="title">
-    <button type="submit" form="TitleForm" class="mdc-button mdc-button--raised">CREATE</button>
-    {% if messages %}
-    {% for message in messages %}
-      {{ message }}
-    {% endfor %}
-    {% endif %}
-  </form>
+  <h3>Enter the title below to create a new vocabulary set.</h3>
+    <form method="POST" id="TitleForm">
+      {% csrf_token %}
+      <input id="title" type="text" placeholder="Enter title (only english):" name="title">
+      <button type="submit" form="TitleForm" class="mdc-button mdc-button--raised">CREATE</button>
+      {% if messages %}
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+      {% endif %}
+    </form>
 
   {% if count > 0 %}
   <br>
@@ -61,61 +61,61 @@
     {{ filter_search.form }}
     <button type='submit'>Search!</button>
   </form>
-  {% endif %}
-<br>
-  {% if set_results == 0 %}
-    <p>No results are found!</p>
-  {% elif filter_results == 0 %}
-    <p>No results are found!</p>
-  {% else %}
-    {% for i in all_item %}
-      <div class="mdc-card">
-        <h4 style="font-size: 18px; padding-left: 5px;">{{ i }}</h4>
-        <table>
-          <tr class="mdc-data-table__header-row">
-            <thead>
-              <th class="mdc-data-table__header-cell">Vocabulary</th>
-              <th class="mdc-data-table__header-cell">Phonetic Writing</th>
-              <th class="mdc-data-table__header-cell">English translation</th>
-            </thead>
-          </tr> 
-        <tbody class="mdc-data-table__content">
-          {% for a in details %}
-            {% if a.title == i %}
-              <tr class="mdc-data-table__row">
-                <td class="mdc-data-table__cell" scope="row" name="word">{{ a.word }}</th>
-                <td class="mdc-data-table__cell" scope="row" name="eng">{{ a.p }}</td>
-                <td class="mdc-data-table__cell" scope="row" name="p">{{ a.eng }}</td>
-              </tr>
-            {% endif %}
-          {% endfor %}
-        </tbody>      
-      </table>  
+  <br>
+    {% if set_results == 0 %}
+      <p>No results are found!</p>
+    {% elif filter_results == 0 %}
+      <p>No results are found!</p>
+    {% else %}
+      {% for i in all_item %}
+        <div class="mdc-card">
+          <h4 style="font-size: 18px; padding-left: 5px;">{{ i }}</h4>
+          <table>
+            <tr class="mdc-data-table__header-row">
+              <thead>
+                <th class="mdc-data-table__header-cell">Vocabulary</th>
+                <th class="mdc-data-table__header-cell">Phonetic Writing</th>
+                <th class="mdc-data-table__header-cell">English translation</th>
+              </thead>
+            </tr> 
+          <tbody class="mdc-data-table__content">
+            {% for a in details %}
+              {% if a.title == i %}
+                <tr class="mdc-data-table__row">
+                  <td class="mdc-data-table__cell" scope="row" name="word">{{ a.word }}</th>
+                  <td class="mdc-data-table__cell" scope="row" name="eng">{{ a.p }}</td>
+                  <td class="mdc-data-table__cell" scope="row" name="p">{{ a.eng }}</td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>      
+        </table>  
 
-        <div class="mdc-card__actions">
-          <div class="mdc-card__action-buttons">
+          <div class="mdc-card__actions">
+            <div class="mdc-card__action-buttons">
+                <button class="mdc-button mdc-card__action mdc-card__action--button">
+                  <a href="{% url 'create' i %}">       
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">View {{ i }}</span>
+                </a>
+              </button>
               <button class="mdc-button mdc-card__action mdc-card__action--button">
-                <a href="{% url 'create' i %}">       
-              <div class="mdc-button__ripple"></div>
-              <span class="mdc-button__label">View {{ i }}</span>
-              </a>
-            </button>
-            <button class="mdc-button mdc-card__action mdc-card__action--button">
-              <a href="{% url 'generate-pdf' i.slug %}" target="_blank">
-              <div class="mdc-button__ripple"></div>
-              <span class="mdc-button__label">Export to PDF</span>
-              </a>
-            </button>
+                <a href="{% url 'generate-pdf' i.slug %}" target="_blank">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Export to PDF</span>
+                </a>
+              </button>
+            </div>
           </div>
-        </div>
-        </div>
-      <br>
-    {% endfor %}
+          </div>
+        <br>
+      {% endfor %}
+    {% endif %}
   {% endif %}
 
-  {% else %}
-  <h1>Login page</h1>
-  <a href="/accounts/login">Sign Up</a>
-  {% endif %}
-  {% endblock %}
+{% else %}
+<h1>Login page</h1>
+<a href="/accounts/login">Sign Up</a>
+{% endif %}
+{% endblock %}
 </body>
