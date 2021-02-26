@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
-import django_heroku
+import django_on_heroku
 import dj_database_url
 from decouple import config 
 
@@ -163,4 +163,4 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-django_heroku.settings(locals())
+django_on_heroku.settings(locals())
