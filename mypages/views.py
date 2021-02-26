@@ -35,8 +35,10 @@ def home(request):
             filter_search = FilterSearch(request.GET, queryset=details) #Search through Vocabs with user input from GET method
             details = filter_search.qs #A queryset of Vocab objects to be passed into home template
             filter_results = details.count() #Count the number of results from FilterSearch
-            return render(request, 'home.html', {'all_item': all_item, 'details': details, 'count': count, 'set_search': set_search, 'set_results': set_results, 'filter_search': filter_search, 'filter_results': filter_results})
-            #Variables passed into home html template through a dictionary to be displayed.
+            context = {'all_item': all_item, 'details': details, 'count': count, 'set_search': set_search,
+                       'set_results': set_results, 'filter_search': filter_search, 'filter_results': filter_results}
+            #Variables to be displayed are passed into home html template through context dictionary.
+            return render(request, 'home.html', context)
         else:
             return render(request, 'home.html')
 
