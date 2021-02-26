@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mypages',
     'django_extensions',
+    'django_filters',
 
     'allauth',
     'allauth.account',

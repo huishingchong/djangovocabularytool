@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     <style type="text/css">
-      .mdc-data-table, .form-input {
+     .form-input {
         padding-left: 20px;
       }
 
@@ -70,40 +70,66 @@
         {% if all_item %}
           {% for i in all_item %}
             {% if i.title == table %}
-            <tr class="mdc-data-table__row">
-            <td>
               {% if i.star %}
-                <button class="mdc-button" type="submit"><input name="Unstar" type="hidden"/>
-                  <a href="{% url 'unstar' i.title i.id %}" style="color: #6929ff; text-decoration: none;">
-                  <span class="material-icons mdc-button__icon" aria-hidden="true"><div class="mdc-button__ripple"></div>star</span></a>
-              </button>
+                <tr class="mdc-data-table__row" style="background-color: #ECEBF9;">
+                  <td>
+                    <button class="mdc-button" type="submit"><input name="Unstar" type="hidden"/>
+                      <a href="{% url 'unstar' i.title i.id %}" style="color: #6929ff; text-decoration: none;">
+                      <span class="material-icons mdc-button__icon" aria-hidden="true"><div class="mdc-button__ripple"></div>star</span></a>
+                    </button>
+                  </td>
+                  <th class="mdc-data-table__cell" scope="row" name="word">{{ i.word }}</th>
+                  <td class="mdc-data-table__cell" scope="row" name="eng">{{ i.p }}</td>
+                  <td class="mdc-data-table__cell" scope="row" name="p">{{ i.eng }}</td>
+      
+                  <td class="mdc-data-table__cell" scope="row">
+                    <button class="mdc-button mdc-button--raised" name="edit">
+                      <a href="{% url 'vocab-edit' i.title i.id %}" style="color: #fafafa; text-decoration: none;">
+                      <div class="mdc-button__ripple"></div>
+                      <i class="material-icons mdc-button__icon" aria-hidden="true">create</i>
+                      <span class="mdc-button__label">Edit</span></a>
+                    </button> 
+                  </td>
+                  <td class="mdc-data-table__cell" id="form-input" scope="row">
+                    <button class="mdc-button mdc-button--raised" name="delete">
+                      <a href="{% url 'vocab-delete' i.title i.id %}" style="color: #fafafa; text-decoration: none;">
+                      <div class="mdc-button__ripple"></div>
+                      <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
+                      <span class="mdc-button__label">Delete</span></a>
+                    </button> 
+                  </td>
+                </tr>
               {% else %}
-                <button class="mdc-button" type="submit"><input name="Star" type="hidden"/>
-                  <a href="{% url 'star' i.title i.id %}" style="color: #6929ff; text-decoration: none;">
-                  <span class="material-icons mdc-button__icon" aria-hidden="true"><div class="mdc-button__ripple"></div>star_border</span></a>
-                </button>
+              <tr class="mdc-data-table__row">
+                <td>
+                  <button class="mdc-button" type="submit"><input name="Star" type="hidden"/>
+                    <a href="{% url 'star' i.title i.id %}" style="color: #6929ff; text-decoration: none;">
+                    <span class="material-icons mdc-button__icon" aria-hidden="true"><div class="mdc-button__ripple"></div>star_border</span></a>
+                  </button>
+                </td>
+                <th class="mdc-data-table__cell" scope="row" name="word">{{ i.word }}</th>
+                <td class="mdc-data-table__cell" scope="row" name="eng">{{ i.p }}</td>
+                <td class="mdc-data-table__cell" scope="row" name="p">{{ i.eng }}</td>
+        
+                <td class="mdc-data-table__cell" scope="row">
+                  <button class="mdc-button mdc-button--raised" name="edit">
+                    <a href="{% url 'vocab-edit' i.title i.id %}" style="color: #fafafa; text-decoration: none;">
+                    <div class="mdc-button__ripple"></div>
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">create</i>
+                    <span class="mdc-button__label">Edit</span></a>
+                  </button> 
+                </td>
+                <td class="mdc-data-table__cell" id="form-input" scope="row">
+                  <button class="mdc-button mdc-button--raised" name="delete">
+                    <a href="{% url 'vocab-delete' i.title i.id %}" style="color: #fafafa; text-decoration: none;">
+                    <div class="mdc-button__ripple"></div>
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
+                    <span class="mdc-button__label">Delete</span></a>
+                  </button> 
+                </td>
+                </tr>
               {% endif %}
-            <th class="mdc-data-table__cell" scope="row" name="word">{{ i.word }}</th>
-            <td class="mdc-data-table__cell" scope="row" name="eng">{{ i.p }}</td>
-            <td class="mdc-data-table__cell" scope="row" name="p">{{ i.eng }}</td>
-
-            <td class="mdc-data-table__cell" scope="row">
-              <button class="mdc-button mdc-button--raised" name="edit">
-                <a href="{% url 'vocab-edit' i.title i.id %}" style="color: #fafafa; text-decoration: none;">
-                <div class="mdc-button__ripple"></div>
-                <i class="material-icons mdc-button__icon" aria-hidden="true">create</i>
-                <span class="mdc-button__label">Edit</span></a>
-              </button> 
-            </td>
-            <td class="mdc-data-table__cell" id="form-input" scope="row">
-              <button class="mdc-button mdc-button--raised" name="delete">
-                <a href="{% url 'vocab-delete' i.title i.id %}" style="color: #fafafa; text-decoration: none;">
-                <div class="mdc-button__ripple"></div>
-                <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
-                  <span class="mdc-button__label">Delete</span></a>
-              </button> 
-            </td>
-          </tr>
+            
             {% endif %}
           {% endfor %}        
         {% endif %}

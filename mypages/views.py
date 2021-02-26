@@ -9,11 +9,10 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from vocabularytool.utils import render_to_pdf
 from django.template.loader import get_template
+from .filter import FilterSearch, SetSearch
 
 
 def home(request):
-    all_item = VocabularySets.objects.all #Queryset all VocabularySet objects to be passed into home template
-    details = Vocab.objects.all #Queryset all Vocab objects to be passed into home template
     if request.method == 'POST':
         form = TitleForm(request.POST or None) #TitleForm to be populated upon POST request
         if form.is_valid(): #method that validates form
@@ -25,13 +24,22 @@ def home(request):
             messages.error(request, 'Input not valid.') #Error message displayed in html
             return redirect(home)
     else: 
-        if request.user.is_authenticated: #Django's built-in method that checks whether user is logged in (authorisation protocol)
-            count = VocabularySets.objects.filter(username=request.user).count() 
-            #Counts the amount of sets in VocabularySets model that matches the given user parameter
+        if request.user.is_authenticated:
+            all_item = VocabularySets.objects.filter(username=request.user) #Queryset VocabularySet objects belonging to user
+            count = all_item.count() #Counts the amount of sets in VocabularySets model that matches the given user parameter
+            set_search = SetSearch(request.GET, queryset=all_item)
+            all_item = set_search.qs
+            set_results = all_item.count()
+
+            details = Vocab.objects.all() #Queryset all Vocab objects to be passed into home template
+            filter_search = FilterSearch(request.GET, queryset=details)
+            details = filter_search.qs
+            filter_results = details.count()
+            return render(request, 'home.html', {'all_item': all_item, 'details': details, 'count': count, 'set_search': set_search, 'set_results': set_results, 'filter_search': filter_search, 'filter_results': filter_results})
+            #Variables passed into home template through a dictionary to be displayed.
         else:
             count = 0 #count is 0 if user is not authenticated (just in case)
-        return render(request, 'home.html', {'all_item': all_item, 'details': details, 'count': count}) 
-        #Variables passed into home template through a dictionary to be displayed.
+            return render(request, 'home.html')
 
 
 def about(request):
@@ -109,7 +117,7 @@ def set_delete_view(request, slug):
 
 
 def generate_PDF(request, slug):
-    title = VocabularySets.objects.get(slug=slug) #get title o
+    title = VocabularySets.objects.get(slug=slug) #get title object filtered by slug which is the title
     username = request.user
     all_item = Vocab.objects.all
     template = get_template('invoice.html') #invoice template to be rendered for PDF viewing
