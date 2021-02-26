@@ -27,18 +27,17 @@ def home(request):
         if request.user.is_authenticated:
             all_item = VocabularySets.objects.filter(username=request.user) #Queryset VocabularySet objects belonging to user
             count = all_item.count() #Counts the amount of sets in VocabularySets model that matches the given user parameter
-            set_search = SetSearch(request.GET, queryset=all_item)
-            all_item = set_search.qs
-            set_results = all_item.count()
+            set_search = SetSearch(request.GET, queryset=all_item) #Search through VocabularySets with user input from GET method
+            all_item = set_search.qs #A queryset of VocabularySets objects to be passed into the home template
+            set_results = all_item.count() #Count the number of results from SetSearch
 
             details = Vocab.objects.all() #Queryset all Vocab objects to be passed into home template
-            filter_search = FilterSearch(request.GET, queryset=details)
-            details = filter_search.qs
-            filter_results = details.count()
+            filter_search = FilterSearch(request.GET, queryset=details) #Search through Vocabs with user input from GET method
+            details = filter_search.qs #A queryset of Vocab objects to be passed into home template
+            filter_results = details.count() #Count the number of results from FilterSearch
             return render(request, 'home.html', {'all_item': all_item, 'details': details, 'count': count, 'set_search': set_search, 'set_results': set_results, 'filter_search': filter_search, 'filter_results': filter_results})
-            #Variables passed into home template through a dictionary to be displayed.
+            #Variables passed into home html template through a dictionary to be displayed.
         else:
-            count = 0 #count is 0 if user is not authenticated (just in case)
             return render(request, 'home.html')
 
 
