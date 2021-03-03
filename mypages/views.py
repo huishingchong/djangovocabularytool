@@ -27,17 +27,16 @@ def home(request):
         if request.user.is_authenticated:
             all_item = VocabularySets.objects.filter(username=request.user) #Queryset VocabularySet objects belonging to user
             count = all_item.count() #Counts the amount of sets in VocabularySets model that matches the given user parameter
-            set_search = SetSearch(request.GET, queryset=all_item) #Search through VocabularySets with user input from GET method
-            all_item = set_search.qs #A queryset of VocabularySets objects to be passed into the home template
-            set_results = all_item.count() #Count the number of results from SetSearch
-
             details = Vocab.objects.all() #Queryset all Vocab objects to be passed into home template
-            filter_search = FilterSearch(request.GET, queryset=details) #Search through Vocabs with user input from GET method
-            details = filter_search.qs #A queryset of Vocab objects to be passed into home template
-            filter_results = details.count() #Count the number of results from FilterSearch
-            context = {'all_item': all_item, 'details': details, 'count': count, 'set_search': set_search,
-                       'set_results': set_results, 'filter_search': filter_search, 'filter_results': filter_results}
-            #Variables to be displayed are passed into home html template through context dictionary.
+
+            if request.method == 'GET':
+                set_search = SetSearch(request.GET, queryset=all_item) #Search through VocabularySets with user input from GET method
+                all_item = set_search.qs #A queryset of VocabularySets objects to be passed into the home template
+                filter_search = FilterSearch(request.GET, queryset=details) #Search through Vocabs with user input from GET method
+                details = filter_search.qs #A queryset of Vocab objects to be passed into home template
+                filter_results = details.count() #Count the number of results from FilterSearch
+                context = {'all_item': all_item, 'details': details, 'count': count, 'set_search': set_search, 
+                'filter_search': filter_search} #Variables to be displayed are passed into home html template through context dictionary.
             return render(request, 'home.html', context)
         else:
             return render(request, 'home.html')
@@ -84,10 +83,10 @@ def unstar(request, slug, id):
 
 def vocab_delete_view(request, slug, id):
     obj = Vocab.objects.get(pk=id) #get Vocab object currently deleting by primary key passed in function during request
-    if request.method == 'POST':
+    if 'Yes' in request.POST:
         obj.delete()
+        messages.success(request, ('Vocabulary has been deleted.')) #success message displayed in create template
         return redirect('../../')
-    messages.success(request, ('Vocabulary has been deleted.')) #success message displayed in create template
     return render(request, 'vocab_delete.html', {'object': obj})
 
 
@@ -99,6 +98,7 @@ def vocab_edit_view(request, slug, id):
             new_obj = form.save(commit=False)
             new_obj.eng = obj.eng #replace with new edited object
             new_obj.save()
+            messages.success(request, ('Vocabulary has been edited.')) #success message displayed in create template
             return redirect('../../')
         else:
             messages.error(request, 'Input not valid (e.g. only allow up to 50 characters).') #error message handling
