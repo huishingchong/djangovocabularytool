@@ -12,7 +12,7 @@ python3 -m pip install --user --upgrade pip
 <br>
 python3 -m venv env
 <br>
-Go to https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/ for  documentation on virtual environments.
+Go to https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/ for documentation on virtual environments.
 <br><br>
 Once in virtual environment - you know if you see (env) - then copy the code below into terminal and press enter:
 <br>
