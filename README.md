@@ -8,7 +8,6 @@ Once in virtual environment - you see (env) - then copy the code below into term
 python3 manage.py runserver
 
 On your web browser, type in localhost:8000 and you should be able to see my web application.
-
 <br>
 Username and password you can use
 
@@ -16,6 +15,7 @@ Username: admin
 
 Password: 123admin456
 <br>
+
 Packages installed:
 
 pip install django-allauth
