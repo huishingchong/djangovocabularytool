@@ -6,6 +6,7 @@ To run web application on local host, first open a new terminal and if not in vi
 source env/bin/activate
 
 Once in virtual environment - you see (env) - then copy the code below into terminal and press enter:
+<br>
 python3 manage.py runserver
 
 On your web browser, type in localhost:8000 and you should be able to see my web application.
@@ -19,7 +20,7 @@ Password: 123admin456
 <br>
 
 Packages installed:
-
+<br>
 pip install django-allauth
 
 pip install pinyin_jyutping_sentence
