@@ -27,3 +27,5 @@ pip install django-extensions
 pip install pydotplus
 
 pip install django-filters
+
+pip install django_on_heroku
