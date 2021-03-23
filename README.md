@@ -19,7 +19,6 @@ Password: 123admin456
 <br>
 
 Packages installed:
-
 pip install django-allauth
 
 pip install pinyin_jyutping_sentence
