@@ -13,7 +13,7 @@ python3 manage.py runserver
 On your web browser, type in localhost:8000 and you should be able to see my web application.
 
 <br>
-Username and password you can use
+Existing account you can use:
 
 Username: admin
 <br>
