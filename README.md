@@ -3,12 +3,13 @@ This is a Chinese vocabulary tool website designated for making the creation of 
 
 <br>
 To run web application on local host, first open a new terminal and if not in virtual environment (env), copy the code below into terminal:
+<br>
 source env/bin/activate
 
 Once in virtual environment - you see (env) - then copy the code below into terminal and press enter:
 <br>
 python3 manage.py runserver
-
+<br>
 On your web browser, type in localhost:8000 and you should be able to see my web application.
 
 <br>
