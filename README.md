@@ -14,7 +14,6 @@ On your web browser, type in localhost:8000 and you should be able to see my web
 Username and password you can use
 
 Username: admin
-
 Password: 123admin456
 <br>
 
