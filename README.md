@@ -5,7 +5,16 @@ This is a Chinese vocabulary tool website designated for making the creation of 
 To run web application on local host, first open a new terminal and make sure you are in the correct directory of the vocabularytool. Copy the code below into terminal to activate the virtual environment:
 <br>
 source env/bin/activate
-
+<br>
+You may need to create a new virtual environment before activating it by downloading pip and installing virtualenv
+<br>
+python3 -m pip install --user --upgrade pip
+<br>
+python3 -m venv env
+<br>
+Go to https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/ for documentation and instructions.
+<br>
+<br>
 Once in virtual environment - you see (env) - then copy the code below into terminal and press enter:
 <br>
 python3 manage.py runserver
